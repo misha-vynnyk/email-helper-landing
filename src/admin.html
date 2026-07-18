@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Адмінка — FlexiBuilder Pro</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/rate.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти до контенту</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-logo" href="index.html">
+        <img src="assets/favicon.svg" alt="" width="26" height="26" />
+        FlexiBuilder Pro
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <div id="admin-gate" class="admin-gate">
+          <form class="card admin-gate__box" id="admin-gate-form">
+            <h1>🔒 Адмінка</h1>
+            <p>Тут — усі відгуки й коментарі до оцінок фіч.</p>
+            <input type="password" id="admin-password" placeholder="Пароль" autocomplete="off" />
+            <button type="submit" class="btn btn-primary">Увійти</button>
+            <div class="admin-gate__error" id="admin-gate-error"></div>
+          </form>
+        </div>
+
+        <div id="admin-content" hidden>
+          <div class="admin-summary">
+            <h1>Відгуки команди</h1>
+            <span class="admin-summary__meta" id="admin-meta"></span>
+          </div>
+          <p id="admin-notice" class="rate-empty" hidden></p>
+          <div id="admin-list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <span>© 2026 FlexiBuilder Pro</span>
+      <div class="site-footer__links">
+        <a href="https://misha-vynnyk.github.io/email-helper/" target="_blank" rel="noopener">Live demo</a>
+        <a href="https://github.com/misha-vynnyk/email-helper-landing" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>
