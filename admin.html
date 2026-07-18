@@ -39,7 +39,17 @@
         <div id="admin-content" hidden>
           <div class="admin-summary">
             <h1>Відгуки команди</h1>
-            <span class="admin-summary__meta" id="admin-meta"></span>
+            <div class="admin-summary__right">
+              <span class="admin-summary__meta" id="admin-meta"></span>
+              <select id="admin-sort" class="admin-sort">
+                <option value="default">Порядок за замовчуванням</option>
+                <option value="avg-desc">Найвища оцінка спочатку</option>
+                <option value="avg-asc">Найнижча оцінка спочатку</option>
+                <option value="count-desc">Найбільше оцінок</option>
+                <option value="recent">Найновіші відгуки</option>
+                <option value="title">За назвою (А–Я)</option>
+              </select>
+            </div>
           </div>
           <p id="admin-notice" class="rate-empty" hidden></p>
           <div id="admin-list"></div>
