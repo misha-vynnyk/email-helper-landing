@@ -23,6 +23,7 @@ const noticeEl = document.getElementById("admin-notice");
 const listEl = document.getElementById("admin-list");
 const metaEl = document.getElementById("admin-meta");
 const sortEl = document.getElementById("admin-sort");
+const loadingEl = document.getElementById("admin-loading");
 
 let entries = [];
 
@@ -146,10 +147,14 @@ sortEl.addEventListener("change", renderList);
 
 async function loadAdmin() {
   if (!IS_FIREBASE_CONFIGURED) {
+    loadingEl.hidden = true;
     noticeEl.textContent = "Firebase ще не налаштовано — немає даних для показу.";
     noticeEl.hidden = false;
     return;
   }
+
+  loadingEl.hidden = false;
+  listEl.innerHTML = "";
 
   let custom = [];
   try {
@@ -159,24 +164,30 @@ async function loadAdmin() {
   }
   const allFeatures = [...FEATURES, ...custom];
 
+  // Fetch every feature's ratings in parallel — sequential awaits here left
+  // #admin-list empty for a couple seconds with zero loading feedback, which
+  // read as "sorting is broken" if you touched the select during that gap.
+  const results = await Promise.allSettled(allFeatures.map((feature) => loadRatings(feature.id)));
+
   entries = [];
   let totalRatings = 0;
-  for (let i = 0; i < allFeatures.length; i++) {
+  results.forEach((result, i) => {
     const feature = allFeatures[i];
-    try {
-      const ratings = await loadRatings(feature.id);
-      const count = ratings.length;
-      const avg = count ? ratings.reduce((sum, r) => sum + (r.score || 0), 0) / count : 0;
-      const lastRatingAt = ratings.reduce((max, r) => Math.max(max, r.createdAt?.seconds || 0), 0);
-      totalRatings += count;
-      entries.push({ feature, ratings, avg, count, lastRatingAt, order: i });
-    } catch (err) {
-      console.error(`Не вдалося завантажити оцінки для ${feature.id}`, err);
+    if (result.status === "rejected") {
+      console.error(`Не вдалося завантажити оцінки для ${feature.id}`, result.reason);
+      return;
     }
-  }
+    const ratings = result.value;
+    const count = ratings.length;
+    const avg = count ? ratings.reduce((sum, r) => sum + (r.score || 0), 0) / count : 0;
+    const lastRatingAt = ratings.reduce((max, r) => Math.max(max, r.createdAt?.seconds || 0), 0);
+    totalRatings += count;
+    entries.push({ feature, ratings, avg, count, lastRatingAt, order: i });
+  });
 
   metaEl.textContent = `${totalRatings} ${totalRatings === 1 ? "оцінка" : "оцінок"} · ${allFeatures.length} ${
     allFeatures.length === 1 ? "фіча" : "фіч"
   }`;
+  loadingEl.hidden = true;
   renderList();
 }
