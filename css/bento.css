@@ -1,0 +1,123 @@
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+
+  @media (max-width: 1120px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.feature-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  &:hover {
+    border-color: var(--color-border-hover);
+  }
+}
+
+.feature-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.feature-card__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.feature-card h3 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.feature-card p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.teaser-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.teaser-card {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+
+  &:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+}
+
+.teaser-card__icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.teaser-card h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.teaser-card p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.teaser-card__link {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.teaser-card__preview {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.teaser-preview-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+
+  & span:last-child {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+}

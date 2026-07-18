@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="uk">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FlexiBuilder Pro</title>
+  <meta name="description"
+    content="FlexiBuilder Pro — конструктор email-шаблонів: HTML/MJML конвертер, обробка зображень, розсилка тестових листів і більше." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/bento.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Перейти до контенту</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-logo" href="index.html">
+        <img src="assets/favicon.svg" alt="" width="26" height="26" />
+        FlexiBuilder Pro
+      </a>
+      <button class="nav-toggle" aria-label="Меню" aria-expanded="false">
+        <span></span>
+      </button>
+      <nav class="site-nav">
+        <a href="index.html" class="is-active">Головна</a>
+        <a href="guide.html">Гайд</a>
+        <a href="features.html">Оцінити фічі</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow hero__eyebrow">🚀 FlexiBuilder Pro</div>
+        <h1>Конструктор email-шаблонів для команди</h1>
+        <p class="hero__lead">
+          Форматування HTML/MJML, обробка зображень, тестова розсилка, бібліотеки блоків і шаблонів —
+          в одному застосунку. Ця сторінка допомагає команді ознайомитись з проєктом і оцінити,
+          які фічі реально потрібні.
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn-primary" href="https://misha-vynnyk.github.io/email-helper/" target="_blank" rel="noopener">
+            Спробувати демо
+          </a>
+          <a class="btn btn-secondary" href="features.html">Оцінити фічі</a>
+        </div>
+
+        <div class="hero__mockup" aria-hidden="true">
+          <div class="hero__mockup-bar">
+            <span class="hero__mockup-dot"></span>
+            <span class="hero__mockup-dot"></span>
+            <span class="hero__mockup-dot"></span>
+          </div>
+          <div class="hero__mockup-body">
+            <div class="hero__mockup-sidebar">
+              <div class="hero__mockup-tab hero__mockup-tab--active"></div>
+              <div class="hero__mockup-tab"></div>
+              <div class="hero__mockup-tab"></div>
+              <div class="hero__mockup-tab"></div>
+              <div class="hero__mockup-tab"></div>
+            </div>
+            <div class="hero__mockup-main">
+              <div class="hero__mockup-skeleton"></div>
+              <div class="hero__mockup-skeleton hero__mockup-skeleton--short"></div>
+              <div class="hero__mockup-skeleton"></div>
+              🚧 Скріни продукту будуть додані пізніше
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <div class="section-head">
+          <div class="eyebrow">Можливості</div>
+          <h2>Що вже є в застосунку</h2>
+          <p>10 модулів, зібраних з CLAUDE.md проєкту. Два з них наразі вимкнені фіче-флагами.</p>
+        </div>
+        <div class="bento-grid">
+          <article class="card feature-card">
+            <div class="feature-card__top">
+              <span class="feature-card__icon">🧩</span>
+            </div>
+            <h3>HTML Converter</h3>
+            <p>Перетворює текст/HTML у email-safe HTML і MJML, з готовими шаблонами та експортом.</p>
+          </article>
+          <article class="card feature-card">
+            <div class="feature-card__top">
+              <span class="feature-card__icon">🛠️</span>
+            </div>
+            <h3>Advanced Converter</h3>
+            <p>DOM-пайплайн для вставки з Google Docs: preprocess → normalize → IR → classify → render.</p>
+          </article>
+          <article class="card feature-card">
+            <div class="feature-card__top">
+              <span class="feature-card__icon">🖼️</span>
+            </div>
+            <h3>Image Converter</h3>
+            <p>Клієнтська конвертація зображень (JPEG/PNG/WebP/AVIF) на WASM, без сервера.</p>
+          </article>
+          <article class="card feature-card">
+            <div class="feature-card__top">
+              <span class="feature-card__icon">✉️</span>
+            </div>
+            <h3>Email Sender</h3>
+            <p>Надсилання тестових листів через SMTP (Gmail/Outlook/Yahoo) з формою креденшлів.</p>
+          </article>
+          <article class="card feature-card">
+            <div class="feature-card__top">
+              <span class="feature-card__icon">📚</span>
+              <span class="badge">🚧 вимкнено</span>
+            </div>
+            <h3>Block Library</h3>
+            <p>Бібліотека email-блоків з категоріями, попереднім переглядом і кастомними блоками.</p>
+          </article>
+          <article class="card feature-card">
+            <div class="feature-card__top">
+              <span class="feature-card__icon">🗂️</span>
+            </div>
+            <h3>Template Library</h3>
+            <p>Керування шаблонами листів через файлову систему з пошуком і синхронізацією.</p>
+          </article>
+          <article class="card feature-card">
+            <div class="feature-card__top">
+              <span class="feature-card__icon">✅</span>
+              <span class="badge">🚧 вимкнено</span>
+            </div>
+            <h3>Email Validator</h3>
+            <p>Перевірка HTML на сумісність з email-клієнтами: теги, CSS, доступність.</p>
+          </article>
+          <article class="card feature-card">
+            <div class="feature-card__top">
+              <span class="feature-card__icon">🤖</span>
+            </div>
+            <h3>AI ALT-текст</h3>
+            <p>Генерація ALT-тексту і назв зображень через OCR + CLIP + Gemma 3 (локальний Ollama).</p>
+          </article>
+          <article class="card feature-card">
+            <div class="feature-card__top">
+              <span class="feature-card__icon">🚀</span>
+            </div>
+            <h3>Storage Automation</h3>
+            <p>Playwright-автоматизація завантаження файлів у сховища (default/alphaone/ttt).</p>
+          </article>
+          <article class="card feature-card">
+            <div class="feature-card__top">
+              <span class="feature-card__icon">💻</span>
+            </div>
+            <h3>Desktop (Electron)</h3>
+            <p>Пакування застосунку в десктопний клієнт для macOS і Windows.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="teaser-grid">
+          <a class="card teaser-card" href="guide.html">
+            <div class="teaser-card__icon">📘</div>
+            <h3>Повний гайд — скоро</h3>
+            <p>Покроковий розбір кожного модуля зі скрінами. Наразі в процесі написання.</p>
+            <span class="teaser-card__link">Переглянути →</span>
+          </a>
+          <a class="card teaser-card" href="features.html">
+            <div class="teaser-card__icon">⭐</div>
+            <h3>Оціни фічі</h3>
+            <p>Анонімно постав оцінку 1–5 кожному модулю — це допоможе визначити, що розвивати далі.</p>
+            <div class="teaser-card__preview" id="top-features-preview"></div>
+            <span class="teaser-card__link">Оцінити →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <span>© 2026 FlexiBuilder Pro</span>
+      <div class="site-footer__links">
+        <a href="https://misha-vynnyk.github.io/email-helper/" target="_blank" rel="noopener">Live demo</a>
+        <a href="https://github.com/misha-vynnyk/email-helper-landing" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script type="module" src="js/top-features-preview.js"></script>
+</body>
+
+</html>

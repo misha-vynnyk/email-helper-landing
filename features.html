@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Оцінити фічі — FlexiBuilder Pro</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/rate.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти до контенту</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-logo" href="index.html">
+        <img src="assets/favicon.svg" alt="" width="26" height="26" />
+        FlexiBuilder Pro
+      </a>
+      <button class="nav-toggle" aria-label="Меню" aria-expanded="false">
+        <span></span>
+      </button>
+      <nav class="site-nav">
+        <a href="index.html">Головна</a>
+        <a href="guide.html">Гайд</a>
+        <a href="features.html" class="is-active">Оцінити фічі</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <div class="rate-header">
+          <div class="eyebrow">⭐ Оцінка фіч</div>
+          <h1>Які модулі команда реально використовує?</h1>
+          <p>
+            Оціни кожну фічу від 1 до 5 і, за бажання, залиш коментар. Оцінка анонімна — логін не потрібен.
+            Середні бали й кількість голосів видно одразу всім.
+          </p>
+        </div>
+
+        <p id="rate-notice" class="rate-empty" hidden></p>
+
+        <div class="rate-list" id="rate-list"></div>
+
+        <form class="card suggest-form" id="suggest-form">
+          <h2>💡 Запропонувати свою фічу</h2>
+          <input type="text" name="title" placeholder="Назва фічі" maxlength="80" required />
+          <textarea name="description" placeholder="Короткий опис (необов'язково)" maxlength="300"></textarea>
+          <div class="rate-card__actions">
+            <button type="submit" class="btn btn-primary">Додати фічу</button>
+            <span class="rate-card__status" id="suggest-status">Дякуємо! Фічу додано до списку.</span>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <span>© 2026 FlexiBuilder Pro</span>
+      <div class="site-footer__links">
+        <a href="https://misha-vynnyk.github.io/email-helper/" target="_blank" rel="noopener">Live demo</a>
+        <a href="https://github.com/misha-vynnyk/email-helper-landing" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script type="module" src="js/rate-features.js"></script>
+</body>
+</html>
