@@ -1,0 +1,194 @@
+.rate-header {
+  max-width: 680px;
+  margin: 0 0 40px;
+}
+
+.rate-header h1 {
+  font-size: 34px;
+  margin: 8px 0 12px;
+
+  @media (max-width: 860px) {
+    font-size: 26px;
+  }
+}
+
+.rate-header p {
+  color: var(--color-text-secondary);
+  font-size: 16px;
+  margin: 0;
+}
+
+.rate-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rate-card {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rate-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.rate-card__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  & h3 {
+    margin: 0;
+    font-size: 17px;
+  }
+}
+
+.rate-card__module {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  font-family: var(--font-mono);
+}
+
+.rate-card p.rate-card__desc {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.rate-card__stats {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.rate-card__avg {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.rate-card__count {
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+}
+
+.rate-card__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.score-picker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.score-picker__btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+
+  &:hover {
+    border-color: var(--color-accent);
+    color: var(--color-text);
+  }
+
+  &.is-selected {
+    background: var(--color-accent-soft);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+}
+
+.rate-card__comment {
+  resize: vertical;
+  min-height: 64px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+  color: var(--color-text);
+  font-size: 14px;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+}
+
+.rate-card__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.rate-card__status {
+  font-size: 13px;
+  color: var(--color-success);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+
+  &.is-visible {
+    opacity: 1;
+  }
+}
+
+.suggest-form {
+  margin-top: 40px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.suggest-form h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.suggest-form input,
+.suggest-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-elevated);
+  color: var(--color-text);
+  font-size: 14px;
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+}
+
+.suggest-form textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+.rate-empty {
+  text-align: center;
+  padding: 40px;
+  color: var(--color-text-tertiary);
+  font-size: 14px;
+}

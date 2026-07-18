@@ -1,0 +1,29 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /features/{featureId} {
+      allow read: true;
+      // create+update share one rule: rating a predefined feature upserts its
+      // parent doc (setDoc merge) every time, so update must stay allowed too.
+      allow create, update: if request.resource.data.keys().hasAll(['title', 'predefined', 'createdAt'])
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0
+        && request.resource.data.title.size() <= 80
+        && request.resource.data.predefined is bool
+        && (!('description' in request.resource.data) || request.resource.data.description.size() <= 300);
+      allow delete: false;
+
+      match /ratings/{ratingId} {
+        allow read: true;
+        allow create: if request.resource.data.keys().hasAll(['score', 'createdAt'])
+          && request.resource.data.score is int
+          && request.resource.data.score >= 1
+          && request.resource.data.score <= 5
+          && (!('comment' in request.resource.data) || request.resource.data.comment.size() <= 500);
+        allow update, delete: false;
+      }
+    }
+  }
+}
