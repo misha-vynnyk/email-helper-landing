@@ -16,6 +16,25 @@ const noticeEl = document.getElementById("rate-notice");
 const suggestForm = document.getElementById("suggest-form");
 const suggestStatus = document.getElementById("suggest-status");
 
+// No login, so "already rated" can only be tracked client-side — a user
+// clearing localStorage or switching browsers can rate again. Good enough
+// for an internal team survey, not a fraud-proof vote.
+const RATED_STORAGE_KEY = "flexibuilder-rated-features";
+
+function getRatedMap() {
+  try {
+    return JSON.parse(localStorage.getItem(RATED_STORAGE_KEY) || "{}");
+  } catch {
+    return {};
+  }
+}
+
+function markRated(featureId, score) {
+  const map = getRatedMap();
+  map[featureId] = score;
+  localStorage.setItem(RATED_STORAGE_KEY, JSON.stringify(map));
+}
+
 async function getAggregate(featureId) {
   const ratingsSnap = await getDocs(collection(db, "features", featureId, "ratings"));
   let sum = 0;
@@ -84,8 +103,29 @@ function renderCard(feature) {
 
   card.appendChild(head);
 
-  const form = document.createElement("div");
-  form.className = "rate-card__form";
+  const formArea = document.createElement("div");
+  card.appendChild(formArea);
+
+  const existingScore = getRatedMap()[feature.id];
+  if (existingScore) {
+    renderAlreadyRated(formArea, existingScore);
+  } else {
+    renderRatingForm(formArea, feature, stats);
+  }
+
+  listEl.appendChild(card);
+  getAggregate(feature.id)
+    .then((agg) => updateStats(stats, agg))
+    .catch(() => {});
+}
+
+function renderAlreadyRated(formArea, score) {
+  formArea.className = "rate-card__form";
+  formArea.innerHTML = `<p class="rate-card__desc">✅ Ти вже оцінив цю фічу на ${score}/5. Дякуємо!</p>`;
+}
+
+function renderRatingForm(formArea, feature, stats) {
+  formArea.className = "rate-card__form";
   const picker = renderScorePicker(feature.id);
   const textarea = document.createElement("textarea");
   textarea.className = "rate-card__comment";
@@ -100,14 +140,12 @@ function renderCard(feature) {
   submitBtn.textContent = "Надіслати оцінку";
   const status = document.createElement("span");
   status.className = "rate-card__status";
-  status.textContent = "Дякуємо за оцінку!";
   actions.appendChild(submitBtn);
   actions.appendChild(status);
 
-  form.appendChild(picker);
-  form.appendChild(textarea);
-  form.appendChild(actions);
-  card.appendChild(form);
+  formArea.appendChild(picker);
+  formArea.appendChild(textarea);
+  formArea.appendChild(actions);
 
   submitBtn.addEventListener("click", async () => {
     const score = Number(picker.dataset.selected || 0);
@@ -133,24 +171,18 @@ function renderCard(feature) {
         comment: textarea.value.slice(0, 500),
         createdAt: serverTimestamp(),
       });
-      status.classList.add("is-visible");
-      textarea.value = "";
+      markRated(feature.id, score);
       const agg = await getAggregate(feature.id);
       updateStats(stats, agg);
+      renderAlreadyRated(formArea, score);
     } catch (err) {
       console.error("Не вдалося надіслати оцінку", err);
       status.textContent = "Помилка. Спробуйте пізніше.";
       status.style.color = "var(--color-warn)";
       status.classList.add("is-visible");
-    } finally {
       submitBtn.disabled = false;
     }
   });
-
-  listEl.appendChild(card);
-  getAggregate(feature.id)
-    .then((agg) => updateStats(stats, agg))
-    .catch(() => {});
 }
 
 function updateStats(statsEl, { average, count }) {
