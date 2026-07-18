@@ -4,7 +4,7 @@
   "private": true,
   "description": "Marketing landing page + feature-rating tool for FlexiBuilder Pro",
   "scripts": {
-    "build": "mkdir -p dist && cp src/*.html dist/ && cp -R src/css dist/css && cp -R src/js dist/js && cp -R src/assets dist/assets",
+    "build": "rm -rf dist && mkdir -p dist && cp src/*.html dist/ && cp -R src/css dist/css && cp -R src/js dist/js && cp -R src/assets dist/assets",
     "serve": "npx serve dist",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"

@@ -1,4 +1,4 @@
-// Firebase config placeholder — replace with your project's values.
+// Copy this file to firebase-config.js and fill in your project's values.
 // See README.md → "Налаштування Firebase" for step-by-step instructions.
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";

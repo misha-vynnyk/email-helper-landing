@@ -22,12 +22,12 @@ npm run serve   # піднімає dist/ на http://localhost:3000
 
 ## Налаштування Firebase
 
-Оцінки не зберігатимуться, поки `src/js/firebase-config.js` містить плейсхолдер-значення. Потрібно:
+`src/js/firebase-config.js` не в git (див. `.gitignore`) — файл із реальними ключами існує лише локально на кожній машині. Причина не в секретності (Firebase web `apiKey` в будь-якому разі публічний — він потрапляє в JS кожного відвідувача сайту; реальний захист дає лише `firestore.rules`), а в тому, щоб не тримати ключі в диффах на GitHub. Потрібно:
 
 1. Створити проєкт на [console.firebase.google.com](https://console.firebase.google.com)
 2. Увімкнути **Firestore Database** (production mode)
 3. Додати Web App (⚙️ Project settings → Your apps → `</>`), скопіювати `firebaseConfig`
-4. Вставити ці значення в `src/js/firebase-config.js` замість `YOUR_API_KEY` тощо
+4. `cp src/js/firebase-config.example.js src/js/firebase-config.js` і вставити свої значення замість `YOUR_API_KEY` тощо
 5. Встановити [Firebase CLI](https://firebase.google.com/docs/cli) і задеплоїти правила:
    ```bash
    npm install -g firebase-tools
@@ -63,3 +63,5 @@ npm run deploy   # build + push у гілку gh-pages
 ```
 
 Сайт буде доступний на `https://<username>.github.io/email-helper-landing/`.
+
+`npm run deploy` пушить локально зібраний `dist/` у гілку `gh-pages` — тобто твій реальний `firebase-config.js` (з диска, не з git) потрапить у публічний білд сайту. Це очікувано: без нього застосунок на проді не працюватиме.
