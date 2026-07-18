@@ -22,6 +22,9 @@ const contentEl = document.getElementById("admin-content");
 const noticeEl = document.getElementById("admin-notice");
 const listEl = document.getElementById("admin-list");
 const metaEl = document.getElementById("admin-meta");
+const sortEl = document.getElementById("admin-sort");
+
+let entries = [];
 
 function unlock() {
   gateEl.hidden = true;
@@ -69,12 +72,9 @@ function formatDate(timestamp) {
   });
 }
 
-function renderFeature(feature, ratings) {
+function renderFeature(feature, ratings, avg, count) {
   const card = document.createElement("article");
   card.className = "card admin-feature";
-
-  const count = ratings.length;
-  const avg = count ? ratings.reduce((sum, r) => sum + (r.score || 0), 0) / count : 0;
 
   const head = document.createElement("div");
   head.className = "admin-feature__head";
@@ -109,9 +109,8 @@ function renderFeature(feature, ratings) {
     item.innerHTML = `
       <span class="admin-rating-item__score">${r.score ?? "–"}</span>
       <div class="admin-rating-item__body">
-        <p class="admin-rating-item__comment${hasComment ? "" : " admin-rating-item__comment--empty"}">${
-          hasComment ? escapeHtml(r.comment) : "без коментаря"
-        }</p>
+        <p class="admin-rating-item__comment${hasComment ? "" : " admin-rating-item__comment--empty"}">${hasComment ? escapeHtml(r.comment) : "без коментаря"
+      }</p>
         <span class="admin-rating-item__date">${formatDate(r.createdAt)}</span>
       </div>
     `;
@@ -128,6 +127,23 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
+const SORTERS = {
+  default: (a, b) => a.order - b.order,
+  "avg-desc": (a, b) => b.avg - a.avg || b.count - a.count,
+  "avg-asc": (a, b) => (a.count ? a.avg : Infinity) - (b.count ? b.avg : Infinity) || a.order - b.order,
+  "count-desc": (a, b) => b.count - a.count || b.avg - a.avg,
+  recent: (a, b) => (b.lastRatingAt || 0) - (a.lastRatingAt || 0),
+  title: (a, b) => a.feature.title.localeCompare(b.feature.title, "uk"),
+};
+
+function renderList() {
+  const sorted = [...entries].sort(SORTERS[sortEl.value] || SORTERS.default);
+  listEl.innerHTML = "";
+  sorted.forEach(({ feature, ratings, avg, count }) => renderFeature(feature, ratings, avg, count));
+}
+
+sortEl.addEventListener("change", renderList);
+
 async function loadAdmin() {
   if (!IS_FIREBASE_CONFIGURED) {
     noticeEl.textContent = "Firebase ще не налаштовано — немає даних для показу.";
@@ -135,7 +151,6 @@ async function loadAdmin() {
     return;
   }
 
-  listEl.innerHTML = "";
   let custom = [];
   try {
     custom = await loadCustomFeatures();
@@ -144,12 +159,17 @@ async function loadAdmin() {
   }
   const allFeatures = [...FEATURES, ...custom];
 
+  entries = [];
   let totalRatings = 0;
-  for (const feature of allFeatures) {
+  for (let i = 0; i < allFeatures.length; i++) {
+    const feature = allFeatures[i];
     try {
       const ratings = await loadRatings(feature.id);
-      totalRatings += ratings.length;
-      renderFeature(feature, ratings);
+      const count = ratings.length;
+      const avg = count ? ratings.reduce((sum, r) => sum + (r.score || 0), 0) / count : 0;
+      const lastRatingAt = ratings.reduce((max, r) => Math.max(max, r.createdAt?.seconds || 0), 0);
+      totalRatings += count;
+      entries.push({ feature, ratings, avg, count, lastRatingAt, order: i });
     } catch (err) {
       console.error(`Не вдалося завантажити оцінки для ${feature.id}`, err);
     }
@@ -158,4 +178,5 @@ async function loadAdmin() {
   metaEl.textContent = `${totalRatings} ${totalRatings === 1 ? "оцінка" : "оцінок"} · ${allFeatures.length} ${
     allFeatures.length === 1 ? "фіча" : "фіч"
   }`;
+  renderList();
 }
